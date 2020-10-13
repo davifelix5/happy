@@ -8,7 +8,9 @@ export default {
 
     const orphanagesRepository = getRepository(Orphanage);
 
-    const orphanages = await orphanagesRepository.find()
+    const orphanages = await orphanagesRepository.find({
+      relations: ['images']
+    })
 
     return res.status(200).json({
       data: orphanages,
@@ -24,7 +26,9 @@ export default {
 
     const orphanagesRepository = getRepository(Orphanage);
 
-    const orphanage = await orphanagesRepository.findOneOrFail(id)
+    const orphanage = await orphanagesRepository.findOneOrFail(id, {
+      relations: ['images']
+    })
 
     return res.status(200).json({
       data: orphanage,
@@ -45,6 +49,12 @@ export default {
       instructions,
       open_on_weekends
     } = req.body;
+
+    const requestImages = req.files as Express.Multer.File[]
+    const images = requestImages.map(file => {
+      return { path: file.filename }
+    })
+
     const orphanagesRepository = getRepository(Orphanage);
 
     const orphanage = orphanagesRepository.create({
@@ -54,7 +64,8 @@ export default {
       longitude,
       about,
       instructions,
-      open_on_weekends
+      open_on_weekends,
+      images,
     });
 
     await orphanagesRepository.save(orphanage);
