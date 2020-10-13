@@ -73,7 +73,7 @@ export default {
     await orphanagesRepository.save(orphanage);
 
     return res.status(201).json({
-      data: { ...orphanage },
+      data: orphanagesView.render(orphanage),
       message: 'Orphanage created successfully',
       status: 201,
     })
