@@ -12,6 +12,22 @@ export default {
 
     return res.status(200).json({
       data: orphanages,
+      message: 'Orphanages found successfully',
+      status: 200,
+    })
+
+  },
+
+  async show(req: Request, res: Response) {
+
+    const { id } = req.params
+
+    const orphanagesRepository = getRepository(Orphanage);
+
+    const orphanage = await orphanagesRepository.findOneOrFail(id)
+
+    return res.status(200).json({
+      data: orphanage,
       message: 'Orphanage found successfully',
       status: 200,
     })
