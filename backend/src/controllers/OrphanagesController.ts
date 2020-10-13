@@ -3,6 +3,8 @@ import { Request, Response } from 'express'
 import { getRepository } from 'typeorm';
 import Orphanage from '../models/Orphanage';
 
+import orphanagesView from '../views/orphanages_view'
+
 export default {
   async index(req: Request, res: Response) {
 
@@ -13,7 +15,7 @@ export default {
     })
 
     return res.status(200).json({
-      data: orphanages,
+      data: orphanagesView.renderMany(orphanages),
       message: 'Orphanages found successfully',
       status: 200,
     })
@@ -31,7 +33,7 @@ export default {
     })
 
     return res.status(200).json({
-      data: orphanage,
+      data: orphanagesView.render(orphanage),
       message: 'Orphanage found successfully',
       status: 200,
     })
