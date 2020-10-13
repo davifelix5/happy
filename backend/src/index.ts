@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import errorHandler from './errors/handler'
 import 'express-async-errors'
 import path from 'path'
@@ -8,6 +9,9 @@ import './database/connection'
 import routes from './routes';
 
 const app = express();
+app.use(cors({
+  origin: 'http://localhost:3000',
+}))
 app.use(express.json());
 app.use(routes)
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')))
