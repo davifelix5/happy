@@ -12,6 +12,7 @@ export default {
       longitude: orphanage.longitude,
       about: orphanage.about,
       instructions: orphanage.instructions,
+	  open_on_weekends: orphanage.open_on_weekends,
       images: imagesView.renderMany(orphanage.images)
     };
   },
