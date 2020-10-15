@@ -9,9 +9,7 @@ import './database/connection'
 import routes from './routes';
 
 const app = express();
-app.use(cors({
-  origin: 'http://localhost:3000',
-}))
+app.use(cors());
 app.use(express.json());
 app.use(routes)
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')))
