@@ -20,6 +20,7 @@ interface Orphanage {
 
 const OrphanagesMap: React.FC = () => {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([])
+  const [latLong, setLatLong] = useState<[number, number]>([-23.5489, -46.6388])
 
   useEffect(() => {
     api.get('/orphanages')
@@ -28,11 +29,18 @@ const OrphanagesMap: React.FC = () => {
       .then(orphanages => setOrphanages(orphanages))
   }, [])
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(res => {
+      const { latitude, longitude } = res.coords
+      setLatLong([latitude, longitude])
+    })
+  }, [])
+
   return (
     <div id="page-map">
       <Sidebar />
       <Map
-        center={[-23.5668582, -46.660879]}
+        center={latLong}
         zoom={15}
         style={{ width: '100%', height: '100%' }}
       >
@@ -55,7 +63,7 @@ const OrphanagesMap: React.FC = () => {
         })}
       </Map>
 
-      <Link to="/" className="create-orphanage">
+      <Link to="/orphanage/create" className="create-orphanage">
         <FiPlus size={32} color="#fff" />
       </Link>
 
