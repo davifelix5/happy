@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Feather } from '@expo/vector-icons'
 
@@ -18,9 +20,19 @@ interface Orphanage {
 
 export default function OrphanagesMap() {
 
+  const navigation = useNavigation()
+
   const [orphanages, setOrphanages] = useState<Orphanage[]>([])
 
-  useEffect(() => {
+  function handleNavigateToDetail(orphanageId: number) {
+    navigation.navigate('OrphanageDetails', { orphanageId })
+  }
+
+  function handleNavigateToRegistration() {
+    navigation.navigate('SelectMapPosition')
+  }
+
+  useFocusEffect(() => {
     api.get('/orphanages')
       .then(res => {
         setOrphanages(res.data.data)
@@ -28,7 +40,8 @@ export default function OrphanagesMap() {
       .catch(() => {
         alert('Houve um erro ao achar os orfanatos.')
       })
-  }, [])
+  })
+
 
   return (
     <View style={styles.container}>
@@ -57,7 +70,9 @@ export default function OrphanagesMap() {
               }}
             >
 
-              <Callout tooltip onPress={() => { }}>
+              <Callout tooltip
+                onPress={() => handleNavigateToDetail(orph.id)}
+              >
                 <View style={styles.calloutContainer}>
                   <Text style={styles.calloutText}>
                     {orph.name}
@@ -73,12 +88,12 @@ export default function OrphanagesMap() {
         <Text style={styles.footerText}>
           {orphanages.length} orfanatos encontrados
           </Text>
-        <TouchableOpacity
+        <RectButton
           style={styles.createOrphanageButton}
-          onPress={() => { }}
+          onPress={handleNavigateToRegistration}
         >
           <Feather name="plus" size={20} color="#FFF" />
-        </TouchableOpacity>
+        </RectButton>
       </View>
     </View>
   );
