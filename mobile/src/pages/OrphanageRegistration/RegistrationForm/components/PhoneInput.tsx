@@ -41,6 +41,7 @@ export default function TelephoneInput({ setValue }: TelephoneInputProps) {
       value={inputValue}
       onChangeText={setDisplay}
       maxLength={17}
+      keyboardType="phone-pad"
     />
   )
 }
