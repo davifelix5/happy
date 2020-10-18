@@ -5,7 +5,7 @@ import Orphanage from '../models/Orphanage';
 
 import orphanagesView from '../views/orphanages_view'
 
-import * as Yup from 'yup'
+import orphanageSchema from '../validation/schemas/orphanageSchema'
 
 export default {
   async index(req: Request, res: Response) {
@@ -72,20 +72,7 @@ export default {
       images,
     }
 
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      opening_hours: Yup.string().required(),
-      latitude: Yup.number().required(),
-      longitude: Yup.number().required(),
-      about: Yup.string().required().max(300),
-      instructions: Yup.string().required(),
-      open_on_weekends: Yup.boolean().required(),
-      images: Yup.array(Yup.object().shape({
-        path: Yup.string().required()
-      }))
-    })
-
-    await schema.validate(data, {
+    await orphanageSchema.validate(data, {
       abortEarly: false
     })
 
