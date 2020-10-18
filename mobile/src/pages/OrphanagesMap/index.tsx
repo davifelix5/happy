@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Text, View } from 'react-native'
 import { AppLoading } from 'expo'
 import { RectButton } from 'react-native-gesture-handler'
@@ -48,15 +48,17 @@ export default function OrphanagesMap() {
     navigation.navigate('SelectMapPosition')
   }
 
-  useFocusEffect(() => {
-    api.get('/orphanages')
-      .then(res => {
-        setOrphanages(res.data.data)
-      })
-      .catch(() => {
-        alert('Houve um erro ao achar os orfanatos.')
-      })
-  })
+  useFocusEffect(
+    useCallback(() => {
+      api.get('/orphanages')
+        .then(res => {
+          setOrphanages(res.data.data)
+        })
+        .catch(() => {
+          alert('Houve um erro ao achar os orfanatos.')
+        })
+    }, [])
+  )
 
   if (!locationFound) {
     return <AppLoading />
