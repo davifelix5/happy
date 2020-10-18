@@ -22,6 +22,7 @@ export default function OrphanageData() {
   const coordinates = route.params as RouteParams
 
   const [name, setName] = useState('')
+  const [whatsapp, setWhatsapp] = useState('')
   const [openingHours, setOpeningHours] = useState('')
   const [instructions, setInstructions] = useState('')
   const [about, setAbout] = useState('')
@@ -34,6 +35,7 @@ export default function OrphanageData() {
     data.append('latitude', String(coordinates.latitude))
     data.append('longitude', String(coordinates.longitude))
     data.append('name', name)
+    data.append('whatsapp', whatsapp)
     data.append('opening_hours', openingHours)
     data.append('instructions', instructions)
     data.append('about', about)
@@ -47,9 +49,12 @@ export default function OrphanageData() {
       } as any)
     })
 
-    await api.post('orphanages', data)
-
-    alert('Orfanato cadastrado com sucesso!')
+    try {
+      await api.post('orphanages', data)
+      alert('Orfanato cadastrado com sucesso!')
+    } catch (err) {
+      alert(`${err.response.data.message} (${err.response.data.status})`)
+    }
 
     navigation.navigate('OrphanagesMap')
   }
@@ -95,6 +100,8 @@ export default function OrphanageData() {
       <Text style={styles.label}>Whatsapp</Text>
       <TextInput
         style={styles.input}
+        value={whatsapp}
+        onChangeText={setWhatsapp}
       />
 
       <Text style={styles.label}>Fotos</Text>
