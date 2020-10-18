@@ -7,6 +7,8 @@ import * as ImagePicker from 'expo-image-picker'
 
 import api from '../../../services/api'
 
+import PhoneInput from './components/PhoneInput'
+
 import styles from './styles'
 
 interface RouteParams {
@@ -53,7 +55,8 @@ export default function OrphanageData() {
       await api.post('orphanages', data)
       alert('Orfanato cadastrado com sucesso!')
     } catch (err) {
-      alert(`${err.response.data.message} (${err.response.data.status})`)
+      const errorResponseData = err.response.data
+      alert(`${errorResponseData.message} (${errorResponseData.status})`)
     }
 
     navigation.navigate('OrphanagesMap')
@@ -98,10 +101,8 @@ export default function OrphanageData() {
       />
 
       <Text style={styles.label}>Whatsapp</Text>
-      <TextInput
-        style={styles.input}
-        value={whatsapp}
-        onChangeText={setWhatsapp}
+      <PhoneInput
+        setValue={setWhatsapp}
       />
 
       <Text style={styles.label}>Fotos</Text>
