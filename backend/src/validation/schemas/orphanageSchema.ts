@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 
 export default Yup.object().shape({
   name: Yup.string().required(),
+  whatsapp: Yup.string().length(11).required(),
   opening_hours: Yup.string().required(),
   latitude: Yup.number().required(),
   longitude: Yup.number().required(),

@@ -7,18 +7,19 @@ export default {
     return {
       id: orphanage.id,
       name: orphanage.name,
+      whatsapp: orphanage.whatsapp,
       opening_hours: orphanage.opening_hours,
       latitude: orphanage.latitude,
       longitude: orphanage.longitude,
       about: orphanage.about,
       instructions: orphanage.instructions,
-	  open_on_weekends: orphanage.open_on_weekends,
+      open_on_weekends: orphanage.open_on_weekends,
       images: imagesView.renderMany(orphanage.images)
-    };
+    }
   },
 
   renderMany(orphanages: Orphanage[]) {
-    return orphanages.map(orphanage => this.render(orphanage));
+    return orphanages.map(orphanage => this.render(orphanage))
   }
 
-};
+}

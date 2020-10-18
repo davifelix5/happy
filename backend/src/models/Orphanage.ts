@@ -11,6 +11,9 @@ export default class Orphanage {
   name: string;
 
   @Column()
+  whatsapp: string;
+
+  @Column()
   opening_hours: string;
 
   @Column()
@@ -27,6 +30,9 @@ export default class Orphanage {
 
   @Column()
   open_on_weekends: boolean;
+
+  @Column({ default: false })
+  approved: boolean;
 
   @OneToMany(() => Image, image => image.orphanage, {
     cascade: ['insert', 'update']

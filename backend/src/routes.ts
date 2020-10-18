@@ -21,6 +21,7 @@ routes.use(authMiddleware)
 routes.get('/users/me', UserController.show)
 
 routes.post('/orphanages', upload.array('images'), OrphanagesController.create)
+routes.patch('/orphanages/approve/:id', OrphanagesController.approve)
 
 
 export default routes;
