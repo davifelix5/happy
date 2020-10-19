@@ -5,6 +5,8 @@ import { Image, View, ScrollView, Text, TouchableOpacity, Linking } from 'react-
 import MapView, { Marker } from 'react-native-maps';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 
+import Loader from '../../components/Loader'
+
 import mapMarkerImg from '../../images/map-marker.png';
 
 import api from '../../services/api'
@@ -59,7 +61,7 @@ export default function OrphanageDetail() {
   }
 
   if (!Object.keys(orphanage).length) {
-    return <View style={styles.container}><Text>Loading...</Text></View>
+    return <Loader />
   }
 
   return (

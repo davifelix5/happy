@@ -8,10 +8,15 @@ import styles from './styles'
 
 interface HeaderProps {
   title: string,
-  showCloseBtn?: boolean
+  showCloseBtn?: boolean,
+  closePageName?: string
 }
 
-export default function Header({ title, showCloseBtn = false }: HeaderProps) {
+export default function Header({
+  title,
+  showCloseBtn = false,
+  closePageName = 'OrphanagesMap'
+}: HeaderProps) {
 
   const navigation = useNavigation()
 
@@ -19,8 +24,8 @@ export default function Header({ title, showCloseBtn = false }: HeaderProps) {
     navigation.goBack()
   }
 
-  function handleNavigateToInicialScreen() {
-    navigation.navigate('OrphanagesMap')
+  function handleClose() {
+    navigation.navigate(closePageName)
   }
 
   return (
@@ -30,7 +35,7 @@ export default function Header({ title, showCloseBtn = false }: HeaderProps) {
       </BorderlessButton>
       <Text style={styles.title}>{title}</Text>
       {showCloseBtn ? (
-        <BorderlessButton onPress={handleNavigateToInicialScreen}>
+        <BorderlessButton onPress={handleClose}>
           <Feather name="x" size={24} color="#f69d" />
         </BorderlessButton>
       ) : <View />}

@@ -5,14 +5,30 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  pageHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 32,
+    paddingBottom: 24,
+    borderBottomWidth: 0.8,
+    borderBottomColor: '#D3E2E6',
+  },
+
+  pageHeaderText: {
+    color: '#8FA7B2',
+    fontFamily: 'Nunito_400Regular',
+    fontSize: 12,
+  },
+
+  textStrong: {
+    fontFamily: 'Nunito_800ExtraBold'
+  },
+
   title: {
     color: '#5c8599',
     fontSize: 24,
     fontFamily: 'Nunito_700Bold',
-    marginBottom: 32,
-    paddingBottom: 24,
-    borderBottomWidth: 0.8,
-    borderBottomColor: '#D3E2E6'
   },
 
   label: {

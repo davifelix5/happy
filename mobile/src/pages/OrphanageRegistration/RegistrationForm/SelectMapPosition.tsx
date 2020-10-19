@@ -1,33 +1,46 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { View, Text } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import MapView, { Marker, MapEvent } from 'react-native-maps'
 
-import mapMarkerImg from '../../../images/map-marker.png';
+import Loader from '../../../components/Loader'
+
+import mapMarkerImg from '../../../images/map-marker.png'
 
 import getUserLocation from '../../../utils/location'
 
-import styles from './styles'
+import styles from './styles/map'
+
+import { RegistrationContext } from '../registrationContext'
+
 
 export default function SelectMapPosition() {
 
   const navigation = useNavigation()
 
-  const [coordinates, setCoordenates] = useState({ latitude: 0, longitude: 0 })
+  const {
+    latitude,
+    longitude,
+    setLatitude,
+    setLongitude,
+  } = useContext(RegistrationContext)
+
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 })
   const [positionFound, setPositionFound] = useState(false)
   const [mapClicked, setMapClicked] = useState(false)
 
   function handleNextStep() {
-    navigation.navigate('RegistrationForm', coordinates)
+    navigation.navigate('OrphanageData')
   }
 
   function handleMapClick(event: MapEvent) {
     setMapClicked(true)
-    const { coordinate: position } = event.nativeEvent
-    setCoordenates(position)
+    const { coordinate } = event.nativeEvent
+    const { latitude, longitude } = coordinate
+    setLatitude(latitude)
+    setLongitude(longitude)
   }
 
   useEffect(() => {
@@ -56,14 +69,13 @@ export default function SelectMapPosition() {
         >
           <Marker
             icon={mapMarkerImg}
-            coordinate={coordinates}
+            coordinate={{
+              latitude,
+              longitude
+            }}
           />
         </MapView>
-      ) : (
-          <View>
-            <Text>Loading...</Text>
-          </View>
-        )}
+      ) : <Loader />}
 
 
       {mapClicked && (

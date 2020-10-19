@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TextInput } from 'react-native'
 
-import styles from '../styles'
+import styles from '../RegistrationForm/styles/registration'
 
 interface TelephoneInputProps {
   setValue: (value: string) => void,

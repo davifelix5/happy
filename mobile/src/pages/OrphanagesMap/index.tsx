@@ -6,6 +6,8 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps'
 import { Feather } from '@expo/vector-icons'
 
+import Loader from '../../components/Loader'
+
 import mapMarker from '../../images/map-marker.png'
 
 import getUserLocation from '../../utils/location'
@@ -28,6 +30,7 @@ export default function OrphanagesMap() {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([])
   const [location, setLocation] = useState({ latitude: -23.5489, longitude: -46.6388 })
   const [locationFound, setLocationFound] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     getUserLocation()
@@ -45,7 +48,7 @@ export default function OrphanagesMap() {
   }
 
   function handleNavigateToRegistration() {
-    navigation.navigate('SelectMapPosition')
+    navigation.navigate('OrpahangeRegistration')
   }
 
   useFocusEffect(
@@ -57,11 +60,18 @@ export default function OrphanagesMap() {
         .catch(() => {
           alert('Houve um erro ao achar os orfanatos.')
         })
+        .finally(() => {
+          setLoading(false)
+        })
     }, [])
   )
 
   if (!locationFound) {
-    return <AppLoading />
+    return <Loader />
+  }
+
+  if (loading) {
+    return <Loader />
   }
 
   return (
