@@ -9,23 +9,25 @@ import styles from './styles'
 interface HeaderProps {
   title: string,
   showCloseBtn?: boolean,
-  closePageName?: string
+  closeFunction?(): void,
+  goBackFunction?(): void,
 }
 
 export default function Header({
   title,
   showCloseBtn = false,
-  closePageName = 'OrphanagesMap'
+  closeFunction,
+  goBackFunction,
 }: HeaderProps) {
 
   const navigation = useNavigation()
 
   function handleNavigateBack() {
-    navigation.goBack()
+    goBackFunction ? goBackFunction() : navigation.goBack()
   }
 
   function handleClose() {
-    navigation.navigate(closePageName)
+    closeFunction ? closeFunction() : navigation.navigate('OrphanagesMap')
   }
 
   return (

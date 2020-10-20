@@ -1,19 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextInput } from 'react-native'
+
+import { getNumbers, formatPhoneNumber } from './utils'
 
 import styles from '../RegistrationForm/styles/registration'
 
 interface TelephoneInputProps {
   setValue: (value: string) => void,
+  value: string,
 }
 
-export default function TelephoneInput({ setValue }: TelephoneInputProps) {
+export default function TelephoneInput({ setValue, value }: TelephoneInputProps) {
   const [inputValue, setInputValue] = useState('')
-
-  function getNumbers(string: string) {
-    const numbers = Array.from(string).filter(value => !isNaN(+value) && value !== ' ')
-    return numbers.join('')
-  }
 
   function setDisplay(text: string) {
     let numbers = getNumbers(text)
@@ -23,17 +21,12 @@ export default function TelephoneInput({ setValue }: TelephoneInputProps) {
       numbers = numbers.slice(0, -1)
     }
 
-    if (numbers.length < 2) return setInputValue(numbers)
-
-    let newText = '(' + numbers.slice(0, 2) + ') ' + numbers.slice(2, 7)
-
-    if (numbers.length > 6) {
-      newText += ' - ' + numbers.slice(7)
-    }
-
-    setInputValue(newText)
-    setValue(getNumbers(newText))
+    setValue(getNumbers(numbers))
   }
+
+  useEffect(() => {
+    setInputValue(formatPhoneNumber(value))
+  }, [value])
 
   return (
     <TextInput

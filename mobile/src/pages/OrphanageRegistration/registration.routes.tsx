@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native'
 
 const { Navigator, Screen } = createStackNavigator()
 
@@ -13,6 +14,13 @@ import SuccessScreen from './SuccessScreen'
 import { RegistrationContextProvider } from './registrationContext'
 
 export default function RegistrationRoutes() {
+
+  const navigation = useNavigation()
+
+  function cancelRegistration() {
+    navigation.navigate('ConfirmCancelation')
+  }
+
   return (
     <RegistrationContextProvider>
       <Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#f3f4f5' } }}>
@@ -21,7 +29,12 @@ export default function RegistrationRoutes() {
           component={SelectMapPosition}
           options={{
             headerShown: true,
-            header: () => <Header title="Selecione um local no mapa" />
+            header: () => (
+              <Header
+                title="Selecione um local no mapa"
+                goBackFunction={cancelRegistration}
+              />
+            )
           }}
         />
         <Screen
@@ -29,7 +42,13 @@ export default function RegistrationRoutes() {
           component={OrphanageData}
           options={{
             headerShown: true,
-            header: () => <Header title="Dados do orfanato" showCloseBtn />
+            header: () => (
+              <Header
+                title="Dados do orfanato"
+                closeFunction={cancelRegistration}
+                showCloseBtn
+              />
+            )
           }}
         />
         <Screen
@@ -37,7 +56,13 @@ export default function RegistrationRoutes() {
           component={OrphanageVisitation}
           options={{
             headerShown: true,
-            header: () => <Header title="Dados para visitação do orfanato" showCloseBtn />
+            header: () => (
+              <Header
+                title="Dados para visitação do orfanato"
+                closeFunction={cancelRegistration}
+                showCloseBtn
+              />
+            )
           }}
         />
         <Screen

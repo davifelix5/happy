@@ -91,6 +91,7 @@ export default function OrphanageData() {
       <Text style={styles.label}>Whatsapp</Text>
       <PhoneInput
         setValue={setWhatsapp}
+        value={whatsapp}
       />
 
       <Text style={styles.label}>Fotos</Text>
