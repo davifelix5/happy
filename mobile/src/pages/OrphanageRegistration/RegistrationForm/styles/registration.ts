@@ -54,16 +54,32 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
 
-  uploadedImagesContainer: {
-    flexDirection: 'row',
-  },
-
   uploadedImage: {
     height: 64,
     width: 64,
     borderRadius: 20,
-    marginBottom: 32,
-    marginRight: 8,
+  },
+
+  imageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    padding: 5,
+    paddingRight: 10,
+    marginBottom: 8,
+    borderRadius: 20,
+    backgroundColor: '#8fa7b3'
+  },
+
+  imageName: {
+    color: '#37C77F',
+    fontSize: 15,
+    fontFamily: 'Nunito_600SemiBold',
+  },
+
+  removeImageButton: {
+
   },
 
   imagesInput: {
@@ -86,7 +102,6 @@ const styles = StyleSheet.create({
   },
 
   nextButton: {
-    backgroundColor: '#15c3d6',
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -98,7 +113,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito_800ExtraBold',
     fontSize: 16,
     color: '#FFF',
+  },
+
+  nextButtonEnabled: {
+    backgroundColor: '#15C3D6'
+  },
+
+  nextButtonDisabled: {
+    backgroundColor: '#CEDEE5',
+  },
+
+  submitButtonEnabled: {
+    backgroundColor: '#39CC83'
+  },
+
+  submitButtonDisabled: {
+    backgroundColor: '#8FFDC6'
   }
+
 })
 
 export default styles

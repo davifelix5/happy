@@ -88,11 +88,19 @@ export default function OrphanageData() {
         />
       </View>
 
-      {formCompleted && (
-        <RectButton style={styles.nextButton} onPress={handleSubmit}>
-          <Text style={styles.nextButtonText}>Cadastrar</Text>
-        </RectButton>
-      )}
+      <RectButton
+        style={formCompleted ? [
+          styles.nextButton,
+          styles.submitButtonEnabled,
+        ] : [
+            styles.nextButton,
+            styles.submitButtonDisabled
+          ]}
+        onPress={handleSubmit}
+        enabled={formCompleted}
+      >
+        <Text style={styles.nextButtonText}>Cadastrar</Text>
+      </RectButton>
     </ScrollView>
   )
 }

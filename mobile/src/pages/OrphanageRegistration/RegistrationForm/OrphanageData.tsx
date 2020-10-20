@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ScrollView, View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
-import { RectButton } from 'react-native-gesture-handler'
+import { LinearGradient } from 'expo-linear-gradient'
+import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
 import * as ImagePicker from 'expo-image-picker'
 
 import PhoneInput from '../components/PhoneInput'
@@ -11,12 +12,18 @@ import styles from './styles/registration'
 
 import { RegistrationContext } from '../registrationContext'
 
+interface ImageDisplay {
+  name: string,
+  uri: string
+}
 
 export default function OrphanageData() {
 
   const navigation = useNavigation()
 
-  const [formCompelted, setFormCompleted] = useState(false)
+  const [formCompleted, setFormCompleted] = useState(false)
+  const [displayImages, setDisplayImages] = useState<ImageDisplay[]>([])
+  const [imageCount, setImageCount] = useState(1)
 
   const {
     name, setName,
@@ -60,9 +67,17 @@ export default function OrphanageData() {
     if (result.cancelled) return
 
     const image = result.uri
+    const displayImage = { name: `image_${imageCount}.jpg`, uri: image }
+
+    setImageCount(imageCount + 1)
     setImages([...images, image])
+    setDisplayImages([...displayImages, displayImage])
   }
 
+  function handleRemoveImage(index: number) {
+    setDisplayImages(displayImages.filter((img, i) => i !== index))
+    setImages(images.filter((img, i) => i !== index))
+  }
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 24 }}>
@@ -88,32 +103,48 @@ export default function OrphanageData() {
         multiline
       />
 
-      <Text style={styles.label}>Whatsapp</Text>
+      <Text style={styles.label}>Número do WhatsApp</Text>
       <PhoneInput
         setValue={setWhatsapp}
         value={whatsapp}
       />
 
       <Text style={styles.label}>Fotos</Text>
-      <View style={styles.uploadedImagesContainer}>
-        {images.map(img => {
+      <View>
+        {displayImages.map((img, index) => {
           return (
-            <Image
-              style={styles.uploadedImage}
-              key={img}
-              source={{ uri: img }}
-            />
+            <LinearGradient
+              style={styles.imageContainer}
+              key={img.uri}
+              colors={['#EDFFF6', '#FCF0F4']}
+              start={{ x: 0.5, y: 0.5 }}
+              end={{ x: 1, y: 0.5 }}
+            >
+              <Image
+                style={styles.uploadedImage}
+                source={{ uri: img.uri }}
+              />
+              <Text style={styles.imageName}>{img.name}</Text>
+              <BorderlessButton
+                style={styles.removeImageButton}
+                onPress={() => handleRemoveImage(index)}
+              >
+                <Feather name="x" size={24} color="#FF669D" />
+              </BorderlessButton>
+            </LinearGradient>
           )
         })}
       </View>
       <TouchableOpacity style={styles.imagesInput} onPress={handleSelectImages}>
         <Feather name="plus" size={24} color="#15B6D6" />
       </TouchableOpacity>
-      {formCompelted && (
-        <RectButton style={styles.nextButton} onPress={handleNavigateToNextScreen}>
-          <Text style={styles.nextButtonText}>Próximo</Text>
-        </RectButton>
-      )}
+      <RectButton
+        style={formCompleted ? [styles.nextButton, styles.nextButtonEnabled] : [styles.nextButton, styles.nextButtonDisabled]}
+        onPress={handleNavigateToNextScreen}
+        enabled={formCompleted}
+      >
+        <Text style={styles.nextButtonText}>Próximo</Text>
+      </RectButton>
     </ScrollView>
   )
 }
