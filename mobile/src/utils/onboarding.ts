@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 
-export default async function isUserFirstAccess() {
+export async function isUserFirstAccess() {
   try {
     const result = await AsyncStorage.getItem('@happy/userHasAccessdedApp')
     if (!result) {
@@ -9,7 +9,6 @@ export default async function isUserFirstAccess() {
     }
     return false
   } catch (err) {
-    console.log('Error while accessing Async Storage')
+    return true
   }
-
 }
