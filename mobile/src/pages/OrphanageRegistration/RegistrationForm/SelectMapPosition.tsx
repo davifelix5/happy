@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import MapView, { Marker, MapEvent } from 'react-native-maps'
 
+import MapInstructions from './MapInstructions'
 import Loader from '../../../components/Loader'
 
 import mapMarkerImg from '../../../images/map-marker.png'
@@ -30,6 +31,15 @@ export default function SelectMapPosition() {
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 })
   const [positionFound, setPositionFound] = useState(false)
   const [mapClicked, setMapClicked] = useState(false)
+  const [showInstructions, setShowInstructions] = useState(true)
+
+  useEffect(() => {
+    if (positionFound) {
+      setTimeout(() => {
+        setShowInstructions(false)
+      }, 5000);
+    }
+  }, [positionFound, setShowInstructions])
 
   function handleNextStep() {
     navigation.navigate('OrphanageData')
@@ -58,23 +68,29 @@ export default function SelectMapPosition() {
   return (
     <View style={styles.container}>
       {positionFound ? (
-        <MapView
-          initialRegion={{
-            ...position,
-            latitudeDelta: 0.008,
-            longitudeDelta: 0.008,
-          }}
-          style={styles.mapStyle}
-          onPress={handleMapClick}
-        >
-          <Marker
-            icon={mapMarkerImg}
-            coordinate={{
-              latitude,
-              longitude
-            }}
+        <>
+          <MapInstructions
+            showInstruciotns={showInstructions}
+            onTouch={() => setShowInstructions(false)}
           />
-        </MapView>
+          <MapView
+            initialRegion={{
+              ...position,
+              latitudeDelta: 0.008,
+              longitudeDelta: 0.008,
+            }}
+            style={styles.mapStyle}
+            onPress={handleMapClick}
+          >
+            <Marker
+              icon={mapMarkerImg}
+              coordinate={{
+                latitude,
+                longitude
+              }}
+            />
+          </MapView>
+        </>
       ) : <Loader />}
 
 
