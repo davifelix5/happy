@@ -6,6 +6,7 @@ import Orphanage from '../models/Orphanage';
 import orphanagesView from '../views/orphanages_view'
 
 import orphanageSchema from '../validation/schemas/orphanageSchema'
+import orphanageUpdateSchema from '../validation/schemas/orphanageUpdateSchema'
 
 export default {
   async index(req: Request, res: Response) {
@@ -88,6 +89,72 @@ export default {
       message: 'Orphanage created successfully',
       status: 201,
     })
+
+  },
+
+  async delete(req: Request, res: Response) {
+
+    const { id } = req.params
+    const orphanageRepository = getRepository(Orphanage)
+
+    try {
+
+      const orphanage = await orphanageRepository.findOne(id)
+
+      if (!orphanage) {
+        return res.status(404).json({
+          message: 'There is not an orphanage with such id',
+          status: 404
+        })
+      }
+
+      await orphanageRepository.remove(orphanage)
+
+      return res.status(204).send()
+
+    } catch (err) {
+      return res.status(400).json({
+        message: 'There has been an error while deleting the orphanage',
+        status: 400
+      })
+    }
+
+  },
+
+  async update(req: Request, res: Response) {
+
+    const id = Number(req.params.id)
+    const data = req.body
+    const orphanageRepository = getRepository(Orphanage)
+    console.log(data)
+
+    await orphanageUpdateSchema.validate(data, {
+      abortEarly: false,
+    })
+
+    try {
+
+      const orphanage = await orphanageRepository.findOne(id)
+
+      if (!orphanage) {
+        return res.status(404).json({
+          message: 'There is no orphanage with such id',
+          status: 404
+        })
+      }
+      console.log(data)
+      orphanageRepository.merge(orphanage, data)
+
+      await orphanageRepository.save(orphanage)
+
+      return res.status(204).send()
+
+    } catch (err) {
+      return res.status(400).json({
+        message: 'There has been an error while updating orphanage',
+        status: 400
+      })
+    }
 
   },
 

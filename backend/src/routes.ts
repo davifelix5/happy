@@ -21,6 +21,8 @@ routes.use(authMiddleware)
 routes.get('/users/me', UserController.show)
 
 routes.post('/orphanages', upload.array('images'), OrphanagesController.create)
+routes.delete('/orphanages/delete/:id', OrphanagesController.delete)
+routes.put('/orphanages/update/:id', OrphanagesController.update)
 routes.patch('/orphanages/approve/:id', OrphanagesController.approve)
 
 
