@@ -4,7 +4,7 @@ import Routes from './routes';
 
 import 'leaflet/dist/leaflet.css';
 
-import './styles/global.css';
+import './global.css';
 
 function App() {
   return (

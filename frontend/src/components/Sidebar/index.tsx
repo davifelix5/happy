@@ -5,7 +5,7 @@ import { FiArrowLeft } from "react-icons/fi";
 
 import mapMarkerImg from '../../images/map-marker.svg';
 
-import '../../styles/components/sidebar.css'
+import './sidebar.css'
 
 const Sidebar: React.FC = () => {
 

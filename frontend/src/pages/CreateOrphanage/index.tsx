@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { LeafletMouseEvent } from "leaflet";
 
@@ -8,23 +7,28 @@ import { FiPlus, FiX } from "react-icons/fi";
 import mapIcon from '../../utils/mapIcon'
 
 import Sidebar from '../../components/Sidebar'
+import Loader from '../../components/Loader'
+import SuccessPage from "../../components/SucessPage";
+import WarningPage from "../../components/WarningPage";
 
-import '../../styles/pages/create-orphanage.css';
+import './create-orphanage.css';
 
 import api from '../../services/api'
 
 const CreateOrphanage: React.FC = () => {
 
-  const history = useHistory()
-
   const [latLong, setLatLong] = useState<[number, number]>([-23.5489, -46.6388]);
   const [name, setName] = useState('')
   const [about, setAbout] = useState('')
+  const [whatsapp, setWhatsapp] = useState('')
   const [instructions, setInstructions] = useState('')
   const [openingHours, setOpeningHours] = useState('')
   const [openOnWeekends, setOpenOnWeekends] = useState(true)
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [imagesPreviewUrl, setImagesPreviewUrl] = useState<string[]>([])
+  const [sending, setSending] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -40,23 +44,29 @@ const CreateOrphanage: React.FC = () => {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
+    setSending(true)
+
     const [latitude, longitude] = latLong
     const data = new FormData()
 
     data.append('latitude', String(latitude))
     data.append('longitude', String(longitude))
     data.append('name', name)
+    data.append('whatsapp', whatsapp)
     data.append('about', about)
     data.append('instructions', instructions)
     data.append('opening_hours', openingHours)
     data.append('open_on_weekends', String(openOnWeekends))
     imageFiles.forEach(img => data.append('images', img))
 
-    await api.post('/orphanages', data)
+    try {
+      await api.post('/orphanages', data)
+      setSuccess(true)
+    } catch (err) {
+      setError(true)
+      setSending(false)
+    }
 
-    alert('Cadastro realizado com sucesso!')
-
-    history.push('/app')
   }
 
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
@@ -77,6 +87,17 @@ const CreateOrphanage: React.FC = () => {
     <div id="page-create-orphanage">
 
       <Sidebar />
+
+      {success && <SuccessPage />}
+
+      {error && (
+        <WarningPage
+          title="Oops!"
+          text="Houve um erro ao cadastrar o orfanato. Tente novamente"
+          backButtonMessage="Tentar novamente"
+          onBackButtonClick={() => setError(false)}
+        />
+      )}
 
       <main>
         <form className="create-orphanage-form" onSubmit={handleSubmit}>
@@ -108,6 +129,11 @@ const CreateOrphanage: React.FC = () => {
                 value={about}
                 onChange={e => setAbout(e.target.value)}
               />
+            </div>
+
+            <div className="input-block">
+              <label htmlFor="whatsapp">Número do WhatsApp</label>
+              <input id="whastapp" value={whatsapp} onChange={e => setWhatsapp(e.target.value)} />
             </div>
 
             <div className="input-block">
@@ -183,8 +209,8 @@ const CreateOrphanage: React.FC = () => {
             </div>
           </fieldset>
 
-          <button className="confirm-button" type="submit">
-            Confirmar
+          <button disabled={sending} className="confirm-button" type="submit">
+            {sending ? <Loader size={20} color="#12AFCB" /> : 'Confirmar'}
           </button>
         </form>
       </main>

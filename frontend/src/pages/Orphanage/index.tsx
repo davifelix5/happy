@@ -8,7 +8,7 @@ import Sidebar from '../../components/Sidebar';
 
 import mapIcon from '../../utils/mapIcon'
 
-import '../../styles/pages/orphanage.css';
+import './orphanage.css';
 
 import api from '../../services/api';
 

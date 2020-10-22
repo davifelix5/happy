@@ -4,7 +4,7 @@ import { FiArrowRight } from 'react-icons/fi';
 
 import logoImg from '../../images/logo.svg';
 
-import '../../styles/pages/landing.css';
+import './landing.css';
 
 const Landing: React.FC = () => {
   return (

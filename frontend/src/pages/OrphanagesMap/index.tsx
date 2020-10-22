@@ -7,7 +7,7 @@ import mapIcon from '../../utils/mapIcon'
 
 import Sidebar from '../../components/Sidebar'
 
-import '../../styles/pages/orphanages-map.css'
+import './orphanages-map.css'
 
 import api from '../../services/api'
 
