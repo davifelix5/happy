@@ -1,0 +1,19 @@
+.sidebar-lg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #15C3D6;
+}
+
+.sidebar-lg .location-info {
+  text-align: center;
+  font-family: Nunito;
+  font-size: 24px;
+  color: #fff
+}
+
+.sidebar-lg .location-info strong {
+  margin-bottom: 10px;
+  font-weight: 800;
+}

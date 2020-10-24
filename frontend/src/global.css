@@ -9,6 +9,14 @@ body {
   background-color: #ebf2f5;
 }
 
+button:enabled {
+  outline: none;
+}
+
+button {
+  border: none;
+}
+
 body, input, button, text-area {
   font: 600 18px Nunito, sans-serif 
 }

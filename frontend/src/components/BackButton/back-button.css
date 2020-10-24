@@ -1,0 +1,23 @@
+a.back-button {
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  
+  background-color: #EBF2F5;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 16px;
+
+  transition: opacity 0.3s;
+}
+
+a.back-button:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,68 @@
+.container {
+  background-color: #fff;
+  position: relative;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  height: 100vh
+}
+
+.container form.content-container {
+  align-self: center;
+  padding: 0 80px;
+}
+
+.container form.content-container h1 {
+
+  font-family: Nunito;
+  font-size: 32px;
+  font-weight: bold;
+  color: #5C8599;
+  margin-bottom: 24px;
+}
+
+.container form.content-container .actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px;
+}
+
+.container form.content-container .actions .remember-me {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container form.content-container .actions .remember-me label {
+  color: #8FA7B2;
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.container form.content-container .actions .remember-me .checkbox span {
+  display: block;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 1px solid #D3E2E5;
+  background-color: #F5F8FA;
+  margin-right: 15px;
+}
+
+.container form.content-container .actions .remember-me .checkbox input {
+  display: none;
+}
+
+.container form.content-container .actions .remember-me .checkbox input:checked + span {
+  background: #37C77F url('../../images/check.svg') center no-repeat;
+}
+
+.container form.content-container .actions a {
+  color: #8FA7B2;
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+}
