@@ -1,37 +1,46 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import image from '../../images/warning.svg'
 
 import './warning-page.css'
 
 interface WarningPageProps {
-  title: string,
-  text: string,
-  backButtonMessage: string,
-  onBackButtonClick(): void
+  title: string
+  subtitle: string
+  firstButtonText?: string,
+  secondButtonText?: string,
+  onFirstButtonClicked?(): void
+  onSecondButtonClick?(): void
 }
 
 export default function WarningPage({
-  onBackButtonClick
+  title,
+  subtitle,
+  firstButtonText,
+  secondButtonText,
+  onFirstButtonClicked,
+  onSecondButtonClick
 }: WarningPageProps) {
   return (
     <div className="warning-container">
       <div className="text-content">
         <h1>
-          Oops!
+          {title}
         </h1>
         <p>
-          Houve um erro no cadastro do seu orfanato.
-          Confira os dados que você informou!
+          {subtitle}
         </p>
         <div className="button-container">
-          <Link to="/app">
-            Voltar para o mapa
-          </Link>
-          <button onClick={onBackButtonClick}>
-            Tentar novamente
-          </button>
+          {firstButtonText && (
+            <button className="secondary-btn" onClick={onFirstButtonClicked}>
+              {firstButtonText}
+            </button>
+          )}
+          {secondButtonText && (
+            <button className="primary-btn" onClick={onSecondButtonClick}>
+              {secondButtonText}
+            </button>
+          )}
         </div>
       </div>
       <div className="image-container">

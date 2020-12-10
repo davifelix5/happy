@@ -1,0 +1,46 @@
+.dashboard-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 80px;
+  background-color: #15C3D6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.dashboard-sidebar .body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-sidebar .body button + button {
+  margin-top: 8px;
+}
+
+
+.dashboard-sidebar button {
+  color: #fff;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background-color: #12AFCB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .3s;    
+}
+
+.dashboard-sidebar button.active {
+  background-color: #FFD666;
+  color: #0089A5
+}
+
+.dashboard-sidebar button:not(.active):hover {
+  opacity: 0.6;
+}

@@ -1,4 +1,4 @@
-.success-container {
+.warning-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -10,26 +10,26 @@
   width: 100vw;
   height: 100vh;
 
-  background-color: #37C77F;
+  background-color: #FF669D;
   color: #fff;
   z-index: 10000;
 }
 
-.success-container .text-content {
+.warning-container .text-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.success-container .text-content h1 {
+.warning-container .text-content h1 {
   font-family: Nunito;
   font-weight: 800;
   font-size: 80px;
   text-align: center;
 }
 
-.success-container .text-content p {
+.warning-container .text-content p {
   max-width: 390px;
   font-family: Nunito;
   font-size: 24px;
@@ -39,29 +39,35 @@
   margin-bottom: 60px;
 }
 
-.success-container .text-content a,
-.success-container .text-content button {
+.warning-container .text-content .button-warning-container {
+  display: flex;
+}
+
+.warning-container .text-content button {
   cursor: pointer;
   text-decoration: none;
+  background-color: #eb548c;
   color: #fff;
   font-weight: 800;
   font-size: 18px;
   border-radius: 20px;
   padding: 20px;
-
+  
   border: none;
 
   transition: background-color 0.2s;
 }
 
-.success-container .text-content button.primary-btn {
-  background-color: #50e79c;
+.warning-container .text-content button + button {
+  background-color: #D6487B;
 }
 
-.success-container .text-content button.secondary-btn {
-  background-color: #31B272;
+.warning-container .text-content a:hover,
+.warning-container .text-content button:hover {
+  background-color: #ee4f89;
 }
 
-.success-container .text-content a:hover {
-  background-color: #3BD689;
+.warning-container .text-content a:last-child,
+.warning-container .text-content button:last-child {
+  margin-left: 10px;
 }

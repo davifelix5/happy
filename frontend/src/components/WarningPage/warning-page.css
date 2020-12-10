@@ -39,28 +39,35 @@
   margin-bottom: 60px;
 }
 
-.warning-container .text-content .button-warning-container {
+.warning-container .text-content .button-container {
   display: flex;
+  align-items: center;
 }
 
-.warning-container .text-content a,
-.warning-container .text-content button {
+.warning-container .text-content .button-container button {
   cursor: pointer;
   text-decoration: none;
   color: #fff;
-  background-color: #D6487B;
   font-weight: 800;
   font-size: 18px;
   border-radius: 20px;
   padding: 20px;
-
+  
   border: none;
 
   transition: background-color 0.2s;
 }
 
-.warning-container .text-content a:hover,
-.warning-container .text-content button:hover {
+.warning-container .text-content .button-container button.secondary-btn {
+  background-color: #f54887;
+}
+
+.warning-container .text-content .button-container button.primary-btn {
+  background-color: #D6487B;
+}
+
+.warning-container .text-content .button-container a:hover,
+.warning-container .text-content .button-container button:hover {
   background-color: #ee4f89;
 }
 

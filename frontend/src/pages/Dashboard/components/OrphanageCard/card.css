@@ -1,0 +1,52 @@
+.card-container {
+  color: #4D6F80;
+  width: 545px;
+  height: 310px;
+  border-radius: 8px;
+  background-color: #fff;
+  margin: 8px;
+}
+
+.card-container .map {
+  margin: 0;
+  width: 100%;
+  height: 230px;
+  border-radius: 8px;
+}
+
+.card-container .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.card-container .info .action-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.card-container .info .action-buttons button + button {
+  margin-left: 8px;
+}
+
+.card-container .info .action-buttons button {
+  color: #15C3D6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: #EBF2F5;
+  border-radius: 16px;
+  transition: opacity 0.3s;
+}
+
+.card-container .info .action-buttons button:first-child:hover svg {
+  opacity: 0.6;
+}
+
+.card-container .info .action-buttons button + button:hover {
+  color: #FF669D;
+}

@@ -1,28 +1,50 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import image from '../../images/success.svg'
 
 import './success-page.css'
 
-export default function SuccessPage() {
+interface WarningPageProps {
+  title: string
+  subtitle: string
+  firstButtonText?: string,
+  secondButtonText?: string,
+  onFirstButtonClicked?(): void
+  onSecondButtonClick?(): void
+}
+
+export default function WarningPage({
+  title,
+  subtitle,
+  firstButtonText,
+  secondButtonText,
+  onFirstButtonClicked,
+  onSecondButtonClick
+}: WarningPageProps) {
   return (
-    <div className="success-container">
+    <div className="warning-container">
       <div className="text-content">
         <h1>
-          Ebaaa!
+          {title}
         </h1>
         <p>
-          O cadastro deu certo e foi enviado
-          ao administrador para ser aprovado.
-          Agora é só esperar :)
+          {subtitle}
         </p>
-        <Link to="/app">
-          Voltar para o mapa
-        </Link>
+        <div className="button-container">
+          {firstButtonText && (
+            <button className="secondary-btn" onClick={onFirstButtonClicked}>
+              {firstButtonText}
+            </button>
+          )}
+          {secondButtonText && (
+            <button className="primary-btn" onClick={onSecondButtonClick}>
+              {secondButtonText}
+            </button>
+          )}
+        </div>
       </div>
       <div className="image-container">
-        <img src={image} alt="Cadastro feito com sucesso" />
+        <img src={image} alt="Sucesso" />
       </div>
     </div>
   )
