@@ -18,7 +18,7 @@ interface OrphanageData {
   pending: boolean
 }
 
-export default function Dashboard() {
+const Dashboard: React.FC = () => {
 
   const [activeButtonIndex, setActiveButtonIndex] = useState(0)
   const [orphanages, setOrphanages] = useState<OrphanageData[]>([])
@@ -81,3 +81,5 @@ export default function Dashboard() {
     </div>
   )
 }
+
+export default Dashboard

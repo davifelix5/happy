@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import { LeafletMouseEvent } from "leaflet";
 
@@ -16,6 +17,8 @@ import './create-orphanage.css';
 import api from '../../services/api'
 
 const CreateOrphanage: React.FC = () => {
+
+  const history = useHistory()
 
   const [latLong, setLatLong] = useState<[number, number]>([-23.5489, -46.6388]);
   const [name, setName] = useState('')
@@ -88,14 +91,23 @@ const CreateOrphanage: React.FC = () => {
 
       <Sidebar />
 
-      {success && <SuccessPage />}
+      {success && (
+        <SuccessPage
+          title="Ebaa!"
+          subtitle="O cadastro deu certo e foi enviado aos administradores para revisão"
+          secondButtonText="Voltar para o mapa"
+          onSecondButtonClick={() => history.push('/app')}
+        />
+      )}
 
       {error && (
         <WarningPage
           title="Oops!"
-          text="Houve um erro ao cadastrar o orfanato. Tente novamente"
-          backButtonMessage="Tentar novamente"
-          onBackButtonClick={() => setError(false)}
+          subtitle="Houve um erro ao cadastrar o orfanato. Tente novamente"
+          firstButtonText="Voltar para o mapa"
+          secondButtonText="Tentar novamente"
+          onFirstButtonClicked={() => history.push('/app')}
+          onSecondButtonClick={() => setError(false)}
         />
       )}
 

@@ -15,6 +15,7 @@ routes.post('/users/reset-password', UserController.resetPassword)
 
 routes.get('/orphanages', OrphanagesController.index)
 routes.get('/orphanages/:id', OrphanagesController.show)
+routes.get('/pending-orphanages', OrphanagesController.listPending)
 
 routes.use(authMiddleware)
 
