@@ -26,6 +26,30 @@ export default {
 
   },
 
+  async listPending(req: Request, res: Response) {
+
+    const orphanageRepository = getRepository(Orphanage)
+
+    const orphanages = await orphanageRepository.find({
+      where: { approved: false }
+    })
+
+
+    if (!orphanages.length) {
+      return res.status(404).json({
+        message: 'There are no pending registrations',
+        status: 404
+      })
+    }
+
+    return res.status(200).json({
+      data: orphanagesView.renderMany(orphanages),
+      message: 'Orphanages found successfully',
+      status: 200,
+    })
+
+  },
+
   async show(req: Request, res: Response) {
 
     const { id } = req.params
@@ -126,7 +150,6 @@ export default {
     const id = Number(req.params.id)
     const data = req.body
     const orphanageRepository = getRepository(Orphanage)
-    console.log(data)
 
     await orphanageUpdateSchema.validate(data, {
       abortEarly: false,
@@ -142,7 +165,6 @@ export default {
           status: 404
         })
       }
-      console.log(data)
       orphanageRepository.merge(orphanage, data)
 
       await orphanageRepository.save(orphanage)

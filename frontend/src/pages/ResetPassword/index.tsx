@@ -7,7 +7,7 @@ import ConfirmButton from '../../components/ConfirmButton'
 
 import './reset-password.css'
 
-export default function Login() {
+const ResetPassword: React.FC = () => {
 
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
@@ -40,3 +40,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default ResetPassword

@@ -14,7 +14,8 @@ export default {
       about: orphanage.about,
       instructions: orphanage.instructions,
       open_on_weekends: orphanage.open_on_weekends,
-      images: imagesView.renderMany(orphanage.images)
+      images: orphanage.images && imagesView.renderMany(orphanage.images),
+      pending: !orphanage.approved
     }
   },
 
