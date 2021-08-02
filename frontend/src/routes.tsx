@@ -18,6 +18,7 @@ const Routes: React.FC = () => {
       <Route name="create-orphanage" path='/orphanage/create' component={CreateOrphapage} />
       <Route name="orphanage" path='/orphanage/:id' component={Orphanage} />
       <Route name="admin" path='/admin' component={Dashboard} exact />
+      <Route name="login" path='/auth/login' component={Login} />
       <Route name="forgot-password" path='/auth/forgot-password' component={ForgotPassword} />
       <Route name="reset-password" path='/auth/reset-password' component={ResetPassword} />
     </Switch>
